@@ -29,7 +29,7 @@ async function main() {
 
     // 🟢 Step 2: Create posts with valid `authorId`
     const posts = await Promise.all(
-        Array.from({ length: 40 }).map(() =>
+        Array.from({ length: 200 }).map(() =>
             prisma.post.create({
                 data: {
                     title: faker.lorem.sentence(),
@@ -40,7 +40,7 @@ async function main() {
                     published: true,
                     comments: {
                         createMany: {
-                            data: Array.from({ length: 20 }).map(() => ({
+                            data: Array.from({ length: 10 }).map(() => ({
                                 content: faker.lorem.sentence(),
                                 authorId: users[Math.floor(Math.random() * users.length)].id, // ✅ Use valid user ID
                             })),

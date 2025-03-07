@@ -1,0 +1,18 @@
+
+
+> front@0.1.0 dev /Users/papmacpro/pap-blog/apps/front
+> next dev --turbopack
+
+   [1m[38;2;173;127;168m▲ Next.js 15.2.1[39m[22m (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.71:3000
+
+ [32m[1m✓[22m[39m Starting...
+ [32m[1m✓[22m[39m Ready in 895ms
+ [37m[1m○[22m[39m Compiling / ...
+ [32m[1m✓[22m[39m Compiled / in 1434ms
+ GET / [32m200[39m in 1728ms
+ [32m[1m✓[22m[39m Compiled /favicon.ico in 360ms
+ GET /favicon.ico?favicon.45db1c09.ico [32m200[39m in 405ms
+ GET /favicon.ico?favicon.45db1c09.ico [32m200[39m in 32ms
+[?25h

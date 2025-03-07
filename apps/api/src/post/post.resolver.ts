@@ -9,13 +9,26 @@ import { UseGuards } from '@nestjs/common';
 export class PostResolver {
   constructor(private readonly postService: PostService) {}
 
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Query(() => [Post], { name: 'posts' })
-  findAll(@Context() context) {
+  findAll(@Context() context,
+  @Args('skip', {nullable: true}) skip?: number,
+  @Args('take', {nullable: true}) take?: number,
+  ) {
     const user = context.req.user;
     console.log(user);
     
-    return this.postService.findAll();
+    return this.postService.findAll({ skip, take });
+  }
+
+  @Query(() => Int, { name: "postCount" })
+  count() {
+    return this.postService.count();
+  }
+
+  @Query(() => Post)
+  getPostById(@Args('id', {type: () => Int}) id: number) {
+    return this.postService.findOne(id);
   }
 
 }
