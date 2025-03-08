@@ -1,9 +1,16 @@
+import { getSession } from '@/lib/session'
 import Link from 'next/link'
 import React, { PropsWithChildren } from 'react'
+import SignInPanel from './signInPanel'
+import Profile from './profile'
 
 type Props = PropsWithChildren
 
-const Navbar = (props: Props) => {
+const Navbar = async (props: Props) => {
+
+    const session = await getSession()
+
+
   return (
     <>
         <h1 className='text-2xl font-bold p-2'>
@@ -21,6 +28,11 @@ const Navbar = (props: Props) => {
             <Link href='#contact' className=''>
                 Contact
             </Link>
+            {session && session.user ? (
+                <Profile user={session.user} />
+            ) : 
+                <SignInPanel />
+            }
         </div>
     </>
   )

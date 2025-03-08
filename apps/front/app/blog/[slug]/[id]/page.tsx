@@ -2,6 +2,8 @@ import { fetchPostById } from '@/lib/actions/postActions';
 import Image from 'next/image';
 import React from 'react'
 import SanitizedContent from './_components/SanitizedContent';
+import Comments from '@/app/blog/[slug]/[id]/_components/comments';
+import { getSession } from '@/lib/session';
 
 type Props = {
     params: {
@@ -14,6 +16,7 @@ const PostPage = async ({params}: Props) => {
 
     const postId = (await params).id;
     const post = await fetchPostById(+postId);
+    const session = await getSession();
 
   return (
     
@@ -35,6 +38,7 @@ const PostPage = async ({params}: Props) => {
         <SanitizedContent content={post.content} className=''/>
 
         {/* Post Comment Here */}
+        <Comments user={session?.user} postId={post.id} />
     </main>
 
   )
