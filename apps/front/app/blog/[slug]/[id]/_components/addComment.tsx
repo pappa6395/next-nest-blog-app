@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-//import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { saveComment } from "@/lib/actions/commentActions";
 import { SessionUser } from "@/lib/session";
 import { CommentEntity } from "@/lib/types/modelTypes";
@@ -20,32 +20,34 @@ type Props = {
   postId: number;
   user: SessionUser;
   className?: string;
-//   refetch: (options?: RefetchOptions) => Promise<
-//     QueryObserverResult<
-//       {
-//         comments: CommentEntity[];
-//         count: number;
-//       },
-//       Error
-//     >
-//   >;
+  refetch: (options?: RefetchOptions) => Promise<
+    QueryObserverResult<
+      {
+        comments: CommentEntity[];
+        totalComments: number;
+      },
+      Error
+    >
+  >;
 };
 const AddComment = (props: Props) => {
   const [state, action] = useActionState(saveComment, undefined);
-  //const { toast } = useToast();
+  const { toast } = useToast();
 
-//   useEffect(() => {
-//     if (state?.message)
-//       toast({
-//         title: state?.ok ? "Success" : "Oops!",
-//         description: state?.message,
-//       });
-//     if (state?.ok) props.refetch();
-//   }, [state]);
+  useEffect(() => {
+    if (state?.message)
+      toast({
+        title: state?.ok ? "Success" : "Oops!",
+        description: state?.message,
+      });
+    if (state?.ok) {
+        props.refetch();
+    }
+  }, [state]);
   return (
-    <Dialog open={state?.open}>
+    <Dialog open={state?.open && !state?.ok}>
       <DialogTrigger asChild>
-        <Button>Leave Your Comment</Button>
+        <Button className="cursor-pointer active:scale-95">Leave Your Comment</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Write Your Comment</DialogTitle>
@@ -67,7 +69,7 @@ const AddComment = (props: Props) => {
             <span className="text-slate-400">Write as </span>
             <span className="text-slate-700">{props.user.name}</span>
           </p>
-          <SubmitButton className="mt-2">Submit</SubmitButton>
+          <SubmitButton className="mt-2 cursor-pointer">Submit</SubmitButton>
         </form>
       </DialogContent>
     </Dialog>

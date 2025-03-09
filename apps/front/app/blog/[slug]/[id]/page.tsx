@@ -4,6 +4,7 @@ import React from 'react'
 import SanitizedContent from './_components/SanitizedContent';
 import Comments from '@/app/blog/[slug]/[id]/_components/comments';
 import { getSession } from '@/lib/session';
+import Like from './_components/like';
 
 type Props = {
     params: {
@@ -37,6 +38,7 @@ const PostPage = async ({params}: Props) => {
         </div>
         <SanitizedContent content={post.content} className=''/>
 
+        <Like postId={+postId} user={session?.user} />
         {/* Post Comment Here */}
         <Comments user={session?.user} postId={post.id} />
     </main>

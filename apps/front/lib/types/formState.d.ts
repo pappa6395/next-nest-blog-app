@@ -27,3 +27,23 @@ export type CreateCommentFormState = {
     ok?: boolean;
     open?: boolean;
 } | undefined;
+
+
+export type PostFormState = | {
+    data?: {
+        title?: string;
+        content?: string;
+        thumbnail?: File | null;
+        tags?: string;
+        published?: boolean;
+    },
+    errors?: {
+        title?: string[];
+        content?: string[];
+        thumbnail?: string[];
+        tags?: string[];
+        isPublished?: string[];
+    },
+    message?: string;
+    ok?: boolean;
+} | undefined;

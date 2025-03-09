@@ -76,6 +76,9 @@ CREATE UNIQUE INDEX "Post_slug_key" ON "Post"("slug");
 CREATE UNIQUE INDEX "Tag_name_key" ON "Tag"("name");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Like_userId_postId_key" ON "Like"("userId", "postId");
+
+-- CreateIndex
 CREATE INDEX "_PostTags_B_index" ON "_PostTags"("B");
 
 -- AddForeignKey

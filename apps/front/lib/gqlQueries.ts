@@ -88,4 +88,57 @@ export const CREATE_COMMENT_MUTATION = gql`
             id
         }
     }
-`
+`;
+
+export const POST_LIKES = gql`
+
+    query PostLikeData($postId: Int!) {
+        postLikesCount(postId: $postId)
+        userLikedPost(postId: $postId)
+    }
+`;
+
+export const LIKE_POST_MUTATION = gql`
+
+    mutation likePost($postId: Int!) {
+        likePost(postId: $postId)
+    }
+`;
+
+export const UNLIKE_POST_MUTATION = gql`
+
+    mutation unlikePost($postId: Int!) {
+        unlikePost(postId: $postId)
+    }
+`;
+
+export const GET_USER_POSTS = gql`
+
+    query getUserPosts($skip: Int, $take: Int) {
+        getUserPosts(skip: $skip, take: $take) {
+            id
+            title
+            slug
+            thumbnail
+            published
+            createdAt
+            content
+            _count {
+                likes
+                comments
+            }
+        }
+        userPostCount
+    }
+`;
+
+export const CREATE_POST_MUTATION = gql`
+
+    mutation createPostMutation($input : CreatePostInput!) {
+        createPost(createPostInput: $input) {
+            id
+        }
+    }
+`;
+
+//export const UPDATE_POST_MUTATION = gql``;

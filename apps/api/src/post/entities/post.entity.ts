@@ -3,6 +3,16 @@ import { CommentEntity } from 'src/comment/entities/comment.entity';
 import { Tag } from 'src/tag/entities/tag.entity';
 import { User } from 'src/user/entities/user.entity';
 
+
+@ObjectType()
+export class Count {
+  @Field(() => Int)
+  likes: number;
+
+  @Field(() => Int)
+  comments: number;
+}
+
 @ObjectType()
 export class Post {
   @Field(() => Int)
@@ -37,4 +47,9 @@ export class Post {
 
   @Field(() => [CommentEntity])
   comments: CommentEntity[];
+
+  @Field(() => Count)
+  _count: Count;
 }
+
+
