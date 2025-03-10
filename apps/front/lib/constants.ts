@@ -1,4 +1,4 @@
 
-export const BACKEND_URL = "http://localhost:8000";
+export const BACKEND_URL = process.env.BACKEND_URL!;
 
 export const DEFAULT_PAGE_SIZE = 12;
