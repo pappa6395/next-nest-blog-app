@@ -1,3 +1,4 @@
+import { PageProps } from "@/.next/types/app/user/posts/[id]/delete/page";
 import SubmitButton from "@/components/submitButton";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,18 +13,15 @@ import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-type Props = {
-  params: Promise<{
-    id: string;
-  }>;
-};
-const DeletePostPage = async (props: Props) => {
-  const params = await props.params;
-  const post = await fetchPostById(+params.id);
 
-  const formAction = async (formData: FormData) => {
+const DeletePostPage = async ({params: paramsPromise}: PageProps) => {
+
+  const { id } = await paramsPromise;
+  const post = await fetchPostById(+id);
+
+  const formAction = async () => {
     "use server";
-    await deletePost(+params.id);
+    await deletePost(+id);
     redirect("/user/posts");
   };
 

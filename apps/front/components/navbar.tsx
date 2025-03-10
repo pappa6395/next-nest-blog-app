@@ -9,7 +9,6 @@ type Props = PropsWithChildren
 const Navbar = async (props: Props) => {
 
     const session = await getSession()
-    const userId = session?.user.id;
 
   return (
     <>

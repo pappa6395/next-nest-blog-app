@@ -5,18 +5,15 @@ import SanitizedContent from './_components/SanitizedContent';
 import Comments from '@/app/blog/[slug]/[id]/_components/comments';
 import { getSession } from '@/lib/session';
 import Like from './_components/like';
-
-type Props = {
-    params: {
-        id: string;
-    }
-}
+import { PageProps } from '@/.next/types/app/blog/[slug]/[id]/page';
 
 
-const PostPage = async ({params}: Props) => {
 
-    const postId = (await params).id;
-    const post = await fetchPostById(+postId);
+const PostPage = async ({params: ParamsPromise}: PageProps) => {
+
+    const { id } = await ParamsPromise
+    //const postId = (await params).id;
+    const post = await fetchPostById(+id);
     const session = await getSession();
 
   return (
@@ -38,7 +35,7 @@ const PostPage = async ({params}: Props) => {
         </div>
         <SanitizedContent content={post.content} className=''/>
 
-        <Like postId={+postId} user={session?.user} />
+        <Like postId={+id} user={session?.user} />
         {/* Post Comment Here */}
         <Comments user={session?.user} postId={post.id} />
     </main>
