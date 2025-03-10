@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -89,5 +89,72 @@ export class PostService {
       },
       include: { tags: true }
     });
+  }
+
+  async update({
+    updatePostInput, 
+    userId
+  }: { 
+    updatePostInput: UpdatePostInput; 
+    userId: any; 
+  }) {
+
+    console.log("Updating post with ID:", updatePostInput.id);
+    
+    const authorIdMatched = await this.prisma.post.findUnique({
+      where: {
+        id: updatePostInput.id,
+        authorId: userId
+      }
+    });
+    console.log("ID matched:", authorIdMatched);
+    
+    if (!authorIdMatched) {
+      throw new UnauthorizedException('You are not authorized to update this post');
+    }
+    const { id, ...data} = updatePostInput;
+    return await this.prisma.post.update({
+      where: {
+        id: updatePostInput.id,
+
+      },
+      data: {
+        ...data,
+        tags: updatePostInput.tags && updatePostInput.tags.length > 0 ? {
+          set: [],
+          connectOrCreate: updatePostInput.tags.map((tag) => ({
+            where: {
+              name: tag,
+            },
+            create: {
+              name: tag,
+            },
+          })),
+        } : undefined,
+      },
+    });
+  }
+
+
+  async delete({postId, userId}: { postId: number; userId: any; }) {
+    const authorIdMatched = await this.prisma.post.findUnique({
+      where: {
+        id: postId,
+        authorId: userId
+      }
+    });
+    
+    if (!authorIdMatched) {
+      throw new UnauthorizedException('You are not authorized to delete this post');
+    }
+
+    const result = await this.prisma.post.delete({
+      where: {
+        id: postId,
+        authorId: userId,
+      },
+    });
+
+    return !!result;
   }
 }

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const PostFormSchema = z.object({
-  postId: z
+  id: z
     .string()
     .transform((value) => parseInt(value))
     .optional(),

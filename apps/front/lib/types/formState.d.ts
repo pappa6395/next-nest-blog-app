@@ -31,13 +31,16 @@ export type CreateCommentFormState = {
 
 export type PostFormState = | {
     data?: {
+        id?: number;
         title?: string;
         content?: string;
         thumbnail?: File | null;
         tags?: string;
-        published?: boolean;
+        published?: string;
+        previousThumbnailUrl?: string;
     },
     errors?: {
+        id?: string[];
         title?: string[];
         content?: string[];
         thumbnail?: string[];

@@ -29,7 +29,7 @@ const UpsertPostForm = ({ state, formAction }: Props) => {
       action={formAction}
       className="flex flex-col gap-5 [&>div>label]:text-slate-500 [&>div>input]:transition [&>div>textarea]:transition"
     >
-      {/* <input hidden name="postId" defaultValue={state?.data?.postId} /> */}
+      <input hidden name="id" defaultValue={state?.data?.id} />
       <div>
         <Label htmlFor="title">Title</Label>
         <Input
@@ -68,14 +68,14 @@ const UpsertPostForm = ({ state, formAction }: Props) => {
         {!!state?.errors?.thumbnail && (
           <p className="text-red-500 animate-shake">{state.errors.thumbnail}</p>
         )}
-        {/* {(!!imageUrl || !!state?.data?.previousThumbnailUrl) && (
+        {(!!imageUrl || !!state?.data?.previousThumbnailUrl) && (
           <Image
             src={(imageUrl || state?.data?.previousThumbnailUrl) ?? ""}
             alt="post thumbnail"
             width={200}
             height={150}
           />
-        )} */}
+        )}
       </div>
       <div>
         <Label htmlFor="tags">Tags (comma-separated)</Label>
@@ -94,7 +94,7 @@ const UpsertPostForm = ({ state, formAction }: Props) => {
           id={"published"}
           type="checkbox"
           name="published"
-          defaultChecked={state?.data?.published}
+          defaultChecked={state?.data?.published === "on" ? true : false}
         />
         <Label htmlFor="published">Published Now</Label>
       </div>

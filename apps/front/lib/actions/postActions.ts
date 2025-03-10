@@ -2,12 +2,13 @@
 
 import { print } from "graphql"
 import { authFetchGraphQL, fetchGraphQL } from "../fetchGraphQL"
-import { CREATE_POST_MUTATION, GET_POST_BY_ID, GET_POSTS, GET_USER_POSTS } from "../gqlQueries"
+import { CREATE_POST_MUTATION, DELETE_POST_MUTATION, GET_POST_BY_ID, GET_POSTS, GET_USER_POSTS, UPDATE_POST_MUTATION } from "../gqlQueries"
 import { Post } from "../types/modelTypes"
 import { transformTakeSkip } from "../helpers"
 import { PostFormState } from "../types/formState"
 import { PostFormSchema } from "../zodSchemas/postFormSchema"
 import { uploadThumbnail } from "../upload"
+import { redirect } from "next/navigation"
 
 export async function fetchPosts(
     {page, pageSize}: {page?: number; pageSize?: number}
@@ -84,4 +85,64 @@ export async function saveNewPost(state: PostFormState , formData: FormData): Pr
         data: Object.fromEntries(formData.entries()),
         message: "Oops, Failed to create post",
     }
+}
+
+export async function updatePost(
+    state: PostFormState,
+    formData: FormData
+): Promise<PostFormState> {
+    // const formData = new FormData();
+    // if (state?.data?.id) {
+    //     Object.entries(state.data).forEach(([key, value]) => {
+    //         if (value !== undefined) {
+    //             formData.append(key, value instanceof File ? value : String(value));
+    //         }
+    //     });
+    // }
+
+    const validatedFields = PostFormSchema.safeParse(
+        Object.fromEntries(formData.entries())
+    );
+
+    if (!validatedFields.success) return {
+        data: Object.fromEntries(formData.entries()),
+        errors: validatedFields.error.flatten().fieldErrors,
+        message: "Validation failed",
+    };
+
+    //Todo: check if thumbnail has been changed
+    const { thumbnail, ...inputs } = validatedFields.data;
+    console.log("validatedFields:", validatedFields.data);
+    
+    let thumbnailUrl = "";
+    if (thumbnail) {
+        thumbnailUrl = await uploadThumbnail(thumbnail);
+    }
+
+    const data = await authFetchGraphQL(print(UPDATE_POST_MUTATION), {
+        input: {
+            ...inputs,
+            thumbnail: thumbnailUrl
+        },
+    });
+    
+
+    if (data) {
+        return {
+            message: "Post updated successfully",
+            ok: true,
+        }
+    }
+
+    return {
+        data: Object.fromEntries(formData.entries()),
+        message: "Oops, Failed to update a post",
+    }
+}
+
+export async function deletePost(postId: number) {
+    const data = await authFetchGraphQL(print(DELETE_POST_MUTATION), {
+        postId
+    });
+    return data.deletePost;
 }
