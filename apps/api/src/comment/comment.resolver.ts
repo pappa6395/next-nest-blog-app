@@ -1,9 +1,9 @@
 import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
 import { CommentService } from './comment.service';
 import { CommentEntity } from './entities/comment.entity';
-import { DEFAULT_PAGE_SIZE } from 'src/constants';
+import { DEFAULT_PAGE_SIZE } from '../constants';
 import { CreateCommentInput } from './dto/create-comment.input';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
 
 

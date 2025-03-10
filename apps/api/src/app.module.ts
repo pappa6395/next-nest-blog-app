@@ -12,7 +12,7 @@ import { TagModule } from './tag/tag.module';
 import { LikeModule } from './like/like.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
-import config from 'config/config';
+import config from '../config/config';
 
 @Module({
   imports: [

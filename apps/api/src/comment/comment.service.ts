@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { DEFAULT_PAGE_SIZE } from 'src/constants';
+import { PrismaService } from '../prisma/prisma.service';
+import { DEFAULT_PAGE_SIZE } from '../constants';
 import { CreateCommentInput } from './dto/create-comment.input';
-import { CommentEntity } from './entities/comment.entity';
 
 @Injectable()
 export class CommentService {

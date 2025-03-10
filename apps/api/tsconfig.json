@@ -18,6 +18,17 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "moduleResolution": "node",
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "allowJs": true
+  },
+  "paths": {
+      "src/*": ["apps/api/src/*"]  // Adjust path for your case
+  },
+  "include": [
+    "src/**/*.ts",       // Include all TS files under the src folder
+    "test/**/*.ts"       // Include all TS files under the test folder
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
