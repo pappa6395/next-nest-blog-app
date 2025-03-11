@@ -3,10 +3,12 @@ import { DEFAULT_PAGE_SIZE } from '@/lib/constants'
 import React from 'react'
 import NoPost from './_components/noposts'
 import PostList from './_components/postList'
-import { PageProps } from '@/.next/types/app/user/posts/page'
 
+type Props = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
-const UserPostsPage = async ({ searchParams }: PageProps) => {
+const UserPostsPage = async ({ searchParams }: Props) => {
 
   const { page } = await searchParams;
   const { totalPosts, posts } = await fetchUserPosts({

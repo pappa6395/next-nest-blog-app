@@ -4,7 +4,8 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Button } from "@/components/ui/button";
 import { deletePost } from "@/lib/actions/postActions";
 import Link from "next/link";
-import { use } from "react";
+import { redirect } from "next/navigation";
+import { use, useState } from "react";
 
 type Props = {
     params: Promise<{
@@ -17,9 +18,14 @@ const InterceptorDeletePostPage = (props: Props) => {
 
     const params = use(props.params);
     const postId = parseInt(params.id);
+    const [showModal, setShowModal] = useState(false);
+    const handleCancel = () => {
+        setShowModal((prev) => !prev);
+        redirect('/user/posts')
+    }
 
     return (
-        <AlertDialog open>
+        <AlertDialog open={!showModal}>
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>
@@ -32,7 +38,13 @@ const InterceptorDeletePostPage = (props: Props) => {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel asChild>
-                        <Link href={"/user/posts"}>Cancel</Link>
+                        <Button
+                            type="button" 
+                            onClick={handleCancel} 
+                            variant="outline"
+                        >
+                            Cancel
+                        </Button>
                     </AlertDialogCancel>
                     <AlertDialogAction asChild>
                         <Button 

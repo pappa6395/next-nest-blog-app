@@ -5,7 +5,7 @@ const Hero = () => {
   return (
 
     <div
-        className='bg-gradient-to-br from-sky-500 to-indigo-500 text-white pt-12'
+        className='bg-gradient-to-br from-sky-200 via-blue-400 to-indigo-900 to-90% text-white pt-12'
     > 
         <div className='container mx-auto flex flex-col md:flex-row items-center flex-wrap px-3'>
             {/* Left Column */}
@@ -23,7 +23,7 @@ const Hero = () => {
             {/* Right Column */}
             <div className='w-full flex justify-center text-center md:w-3/5 py-7'>
                 <Image 
-                    src='/hero.png'
+                    src='/Blog-Hero1.png'
                     alt='hero'
                     width={500}
                     height={500}

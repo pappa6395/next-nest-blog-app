@@ -32,7 +32,8 @@ const SignUpForm = () => {
                 <Label htmlFor='email'>Email</Label>
                 <Input 
                     id='email' 
-                    name='email' 
+                    name='email'
+                    type='email' 
                     placeholder='john@example.com' 
                     defaultValue={state?.data?.email}/>
             </div>
@@ -43,7 +44,8 @@ const SignUpForm = () => {
                 <Label htmlFor='password'>Password</Label>
                 <Input 
                     id='password' 
-                    name='password' 
+                    name='password'
+                    type='password' 
                     placeholder='password' 
                     defaultValue={state?.data?.password}/>
             </div>

@@ -1,13 +1,17 @@
 import React from 'react'
 import UpdatePostContainer from './_components/updatePostContainer'
 import { fetchPostById } from '@/lib/actions/postActions';
-import { PageProps } from '@/.next/types/app/user/posts/[id]/update/page';
+//import { PageProps } from '@/.next/types/app/user/posts/[id]/update/page';
 
+type Props ={
+  params: { id: string };
+}
 
-const UpdatePostPage = async ({params: paramsPromise}: PageProps) => {
+const UpdatePostPage = async (props: Props) => {
 
-  const { id } = await paramsPromise;
-  const post = await fetchPostById(parseInt(id))
+  const params = await props.params;
+  //const { id } = await paramsPromise;
+  const post = await fetchPostById(parseInt(params.id))
   
   return (
 

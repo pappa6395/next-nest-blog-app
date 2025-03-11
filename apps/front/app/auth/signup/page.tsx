@@ -1,5 +1,6 @@
 import React from 'react'
 import SignUpForm from './_components/signupForm'
+import Link from 'next/link'
 
 
 
@@ -14,7 +15,10 @@ const SignUpPage = () => {
         </h2>
         <SignUpForm />
         <div>
-            <p>Already have an account?</p>
+          <p>Already have an account?</p>
+          <Link className="underline" href={"/auth/signin"}>
+            Sign In
+          </Link>
         </div>
     </div>
 

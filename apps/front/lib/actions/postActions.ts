@@ -65,11 +65,12 @@ export async function saveNewPost(state: PostFormState , formData: FormData): Pr
         }  // Todo: handle thumbnail upload error properly in production code. For now, just return error message.
     }
     
+    const { id, ...inputs} = validatedFields.data;
 
     // Todo: call graphQL API
     const data = await authFetchGraphQL(print(CREATE_POST_MUTATION), {
         input: {
-           ...validatedFields.data,
+           ...inputs,
             thumbnail: thumbnailUrl,
         }
     });
