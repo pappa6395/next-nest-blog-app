@@ -24,6 +24,10 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true, // Use this here instead of in ESLint config
   },
+  typescript: {
+    ignoreBuildErrors: false, // Prevent silent TypeScript issues
+  },
+  
 };
 
 export default nextConfig;

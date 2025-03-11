@@ -4,14 +4,13 @@ import { fetchPostById } from '@/lib/actions/postActions';
 //import { PageProps } from '@/.next/types/app/user/posts/[id]/update/page';
 
 type Props ={
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-const UpdatePostPage = async (props: Props) => {
+const UpdatePostPage = async ({params}: Props) => {
 
-  const params = await props.params;
-  //const { id } = await paramsPromise;
-  const post = await fetchPostById(parseInt(params.id))
+  const postId = (await params).id;
+  const post = await fetchPostById(parseInt(postId))
   
   return (
 

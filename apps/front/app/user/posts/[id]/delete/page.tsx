@@ -17,15 +17,14 @@ type Props = {
   params: Promise<{ id: string }>;
 }
 
-const DeletePostPage = async (props: Props) => {
+const DeletePostPage = async ({params}: Props) => {
 
-  const params = await props.params;
-  //const { id } = await paramsPromise;
-  const post = await fetchPostById(parseInt(params.id));
+  const postId = (await params).id;
+  const post = await fetchPostById(parseInt(postId));
 
   const formAction = async () => {
     "use server";
-    await deletePost(parseInt(params.id));
+    await deletePost(parseInt(postId));
     redirect("/user/posts");
   };
 
