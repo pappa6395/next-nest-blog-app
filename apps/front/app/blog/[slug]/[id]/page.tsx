@@ -10,6 +10,7 @@ import Like from './_components/like';
 type Props = {
     params: {
         id: string;
+        slug: string;
     };
 };
 
